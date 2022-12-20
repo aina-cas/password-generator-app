@@ -1,1 +1,2 @@
-# password-generator-app
+# Team project: password-generator-app 
+
