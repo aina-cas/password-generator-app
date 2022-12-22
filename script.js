@@ -126,10 +126,10 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
 
 
 
-  // Password strenght color function 
+  // Password strength color function 
   
-  // If parameteres return true, strenght variable is increesed by one. 
-  function passwordStrenght (includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+  // If parameteres return true, strength variable is increesed by one. 
+  function passwordStrength (includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
     let strength = 0;
     let strengthColorBar = '';
 
@@ -149,13 +149,13 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
     //Based on value of the variable 'strength' changing strengthColorBar value with a string of color 
     //to represent strength
     if (strength === 0) {
-      strengthColorBar= '#18171F'; //Strengh bar default black color
+      strengthColorBar= '#18171F'; //Strength bar default black color
     }
     else if (strength === 1) {
       strengthColorBar = '#F64A4A' //Returns red
     }
     else if (strength === 2) {
-      strenghtColorBar = '#FB7C58'; //Returns orange
+      strengthColorBar = '#FB7C58'; //Returns orange
     }
     else if (strength === 3) {
       strengthColorBar = '#F8CD65'; //Returns yellow
@@ -170,9 +170,9 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
 
 /* 
 
-As I'm looking at this function, it seems to me I have to write another one for changing strenght text,
+As I'm looking at this function, it seems to me I have to write another one for changing strength text,
  which is going to look pretty similar, almost exacly the same. 
-Any ideas how to avoid repettion? Perhaps we could include another variable in the passworsTrenght function like 
+Any ideas how to avoid repettion? Perhaps we could include another variable in the passworStrength function like 
 strengthText and return and object, for example :
 
            retrun {
