@@ -114,12 +114,83 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
     return password;
   }
   
- 
-  
-  
-  
-  
   // Example:
   passwordGenerator(12, true, true, true, false);
   // Output: a password 12 characters long including at least one uppercase, lowercase, and number character, but no symbols.
   
+
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+
+
+  // Password strenght color function 
+  
+  // If parameteres return true, strenght variable is increesed by one. 
+  function passwordStrenght (includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+    let strength = 0;
+    let strengthColorBar = '';
+
+    if (includeUppercase) {
+      strength++;
+    }
+    if (includeLowercase) {
+      strength++;
+    }
+    if (includeNumbers) {
+      strength++;
+    }
+    if (includeSymbols) {
+      strength++
+    }
+
+    //Based on value of the variable 'strength' changing strengthColorBar value with a string of color 
+    //to represent strength
+    if (strength === 0) {
+      strengthColorBar= '#18171F'; //Strengh bar default black color
+    }
+    else if (strength === 1) {
+      strengthColorBar = '#F64A4A' //Returns red
+    }
+    else if (strength === 2) {
+      strenghtColorBar = '#FB7C58'; //Returns orange
+    }
+    else if (strength === 3) {
+      strengthColorBar = '#F8CD65'; //Returns yellow
+    }
+    else {
+      strengthColorBar = '#A4FFAF'; //Returns green
+    }
+
+    return strengthColorBar;
+  }
+
+
+/* 
+
+As I'm looking at this function, it seems to me I have to write another one for changing strenght text,
+ which is going to look pretty similar, almost exacly the same. 
+Any ideas how to avoid repettion? Perhaps we could include another variable in the passworsTrenght function like 
+strengthText and return and object, for example :
+
+           retrun {
+            strengthColorBar : strengthColorBar, 
+            strengthText : strengthText
+           };
+
+  The passwordStrength function would only add couple more lines for example :
+     
+           ......
+
+           if (strength === 0) {
+              strengthText = '';
+              strengthColorBar = '#18171F';
+           } else if (strength === 1) {
+              strengthText = 'Too weak!';
+              strengthColorBar = '#F64A4A';
+
+            ......
+ 
+*/  
