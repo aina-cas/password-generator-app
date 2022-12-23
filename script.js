@@ -1,4 +1,22 @@
+// displayPassword function 
 
+function displayPassword() { 
+  console.log(//resultofPassword);
+}
+
+// copyButton function 
+
+let copyButton = document.getElementById("copy-button");                         // Need to add "copy-button" ID in html file
+copyButton.addEventListener("click", copyPassword);
+
+function copyPassword() {
+  let password = document.getElementById("copy-password").value;
+  navigator.clipboard.writeText(password).then(() => {
+    alert("Copied!");
+  }).catch(err => {
+    alert("Oops, unable to copy");
+  });
+}
 
 // Parameters: length - how long the password should be 
 // includeUppercase - boolean value, if true, includes uppercase and same with the others. If false , will not include. 
