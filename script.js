@@ -176,7 +176,7 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
     };
   }
 
-  
+
 //Example:
 
 passwordStrength(true, true, false, false);
@@ -211,3 +211,70 @@ strengthText and return and object, for example :
             ......
  
 */  
+
+
+////////////////////////////////////////////////////////////////////////
+
+//Include uppercase function 
+
+function includeUppercase () {
+  //get reference to the checkbox 
+  let checkbox = document.getElementById('uppercase');
+  
+  //Access the checked property of the checkbox element. If its checked property is true, 
+  //then the checkbox is checked, otherwise, it is not.
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+///////////////////////////////////////////////////////////////////////
+
+//Include lowercase function 
+
+
+//function the same principle as above 
+function includeLowercase () {
+  let checkbox = getElementById('lowercase');
+
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+
+//Include numbers function 
+
+//function the same principle as above
+function includeNumbers () {
+  let checkbox = getElementById('numbers');
+
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+//Include symbols function 
+
+//Function the same principle as above 
+function includeSymbols () {
+  let checkbox = getElementById('symbols');
+
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
