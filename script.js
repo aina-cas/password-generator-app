@@ -132,6 +132,7 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
   function passwordStrength (includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
     let strength = 0;
     let strengthColorBar = '';
+    let strengthText = '';
 
     if (includeUppercase) {
       strength++;
@@ -146,29 +147,45 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
       strength++
     }
 
-    //Based on value of the variable 'strength' changing strengthColorBar value with a string of color 
+    //Based on the value of the variable 'strength' changing strengthColorBar value with a string of color 
     //to represent strength
     if (strength === 0) {
       strengthColorBar= '#18171F'; //Strength bar default black color
+      strengthText = ''; //Strength text is an empty string
     }
     else if (strength === 1) {
       strengthColorBar = '#F64A4A' //Returns red
+      strengthText = 'TOO WEAK!'; 
     }
     else if (strength === 2) {
       strengthColorBar = '#FB7C58'; //Returns orange
+      strengthText = 'WEAK';
     }
     else if (strength === 3) {
       strengthColorBar = '#F8CD65'; //Returns yellow
+      strengthText = 'MEDIUM'
     }
     else {
       strengthColorBar = '#A4FFAF'; //Returns green
+      strengthText = 'STRONG';
     }
 
-    return strengthColorBar;
+    return {
+      strengthColorBar : strengthColorBar,
+      strengthText : strengthText
+    };
   }
 
+  
+//Example:
+
+passwordStrength(true, true, false, false);
+//Output {strengthColorBar: '#FB7C58', strengthText: 'WEAK'}
 
 /* 
+Update! 
+Function updated as mentioned bellow
+
 
 As I'm looking at this function, it seems to me I have to write another one for changing strength text,
  which is going to look pretty similar, almost exacly the same. 
