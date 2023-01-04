@@ -1,3 +1,40 @@
+// 1. Function to display password 
+
+    // Starting with password 
+    let password = passwordGenerator();                                                    // Need to figure out how to include user input re: uppercase, lowercase, symbols, numbers, etc.? 
+
+    // Displays password within the <h2> element 
+    function displayPassword() { 
+      document.getElementById('password-display').innerHTML = password;                    // Need to add id 'password-display' to the <h2> element
+    };
+
+// 2. Function to copy password 
+
+    // Starting with the element 
+    let copyButton = document.getElementById('copy-button');                                // Need to pull/add ID for copy button from HTML 
+
+    // Calling addEventListener method on the copyButton element, so the user can click on the button and trigger the method
+    copyButton.addEventListener('click', copyPassword);
+
+    function copyPassword() {
+      // Starting with the password value
+      let passwordValue = document.getElementById('copy-password').value;                   // Need to add 'copy-password' ID in HTML
+      // Calling the writeText method on the clipboard API, and then using then/catch Promise methods
+      navigator.clipboard.writeText(password).then(() => {
+        alert('Copied!');
+      }).catch(err => {
+        alert('Oops, unable to copy');
+      });
+    }
+
+// 3. Function to display character length 
+    // Takes input from character length range bar and display character Length as a number   
+    function displayCharacterLength() {
+      // Starting with element
+      let length = document.getElementById('strength').rangevalue.value;    
+      // Displays the character length on the page
+      document.getElementById('character-length').innerHTML = length;                       // Need to add 'character-length' ID in HTML 
+    }
 
 
 // Parameters: length - how long the password should be 
