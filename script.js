@@ -1,3 +1,21 @@
+
+
+//Adding working and connected functions to the top of the page 
+
+//  Function to display character length 
+    // Takes input from character length range bar and display character Length as a number   
+    function displayCharacterLength() {
+      // Starting with element
+      let length = document.getElementById('status').value;    
+      // Displays the character length on the page
+      document.getElementById('character-length').innerHTML = length;                     
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+
 // 1. Function to display password 
 
     // Starting with password 
@@ -27,15 +45,9 @@
       });
     }
 
-// 3. Function to display character length 
-    // Takes input from character length range bar and display character Length as a number   
-    function displayCharacterLength() {
-      // Starting with element
-      let length = document.getElementById('strength').rangevalue.value;    
-      // Displays the character length on the page
-      document.getElementById('character-length').innerHTML = length;                       // Need to add 'character-length' ID in HTML 
-    }
 
+
+/*
 
 // Parameters: length - how long the password should be 
 // includeUppercase - boolean value, if true, includes uppercase and same with the others. If false , will not include. 
@@ -84,7 +96,7 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
   // The problem with this function is, that ,for example, even if all parameters are true, the function could still skip 
   //one or more particular characters and generate a password without an uppercase or other, even though it was selected. So bellow hopefully is a solution 
 
-
+*/
 
 
   ///////////////////////////////////////////////////////////////////////////

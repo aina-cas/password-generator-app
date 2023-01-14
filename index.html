@@ -40,13 +40,13 @@
         <div id="main2">
         <div id="character" class="container">
                 <h2>Character Length</h2>
-                <p>0</p>
+                <p id="character-length">0</p>
             </div>
         <!-- STATUS BAR -->
         <div id="statusbar">
             <div class="container">
                 <input type="range" id="status" name="status"
-                    min="0" max="20" value="0" step="1" oninput="rangevalue.value=value"/>
+                    min="0" max="20" value="0" step="1" oninput="displayCharacterLength()"/>
             </div>
         </div>
         <!-- CHECKBOX -->
