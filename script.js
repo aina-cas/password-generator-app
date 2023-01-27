@@ -3,47 +3,123 @@
 //Adding working and connected functions to the top of the page 
 
 //  Function to display character length 
-    // Takes input from character length range bar and display character Length as a number   
-    function displayCharacterLength() {
-      // Starting with element
-      let length = document.getElementById('status').value;    
-      // Displays the character length on the page
-      document.getElementById('character-length').innerHTML = length;                     
-    }
+// Takes input from character length range bar and display character Length as a number   
+function displayCharacterLength() {
+  // Starting with element
+  let length = document.getElementById('status').value;
+  // Displays the character length on the page
+  document.getElementById('character-length').innerHTML = length;
+}
+
+// Helper function to be used in the passwordGenerator function to assist with selecting random characters for the password
+// Returns a random character type, depending on the specified options
+function getRandomType(includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+  let types = '';
+  if (includeUppercase) {
+    types += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  }
+  if (includeLowercase) {
+    types += 'abcdefghijklmnopqrstuvwxyz';
+  }
+  if (includeNumbers) {
+    types += '0123456789';
+  }
+  if (includeSymbols) {
+    types += '!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~';
+  }
+  return types;
+}
+
+// Another helper function to make sure that at least one character is included in the password 
+// Returns a random character from the specified string of characters
+function getRandomCharacter(characters) {
+  return characters.charAt(Math.floor(Math.random() * characters.length));
+}
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
+// The main password generating function 
 
-    
+
+function passwordGenerator() {
+  let length = document.getElementById('status').value;
+  let includeUppercase = document.getElementById('uppercase').checked;
+  let includeLowercase = document.getElementById('lowercase').checked;
+  let includeNumbers = document.getElementById('numbers').checked;
+  let includeSymbols = document.getElementById('symbols').checked;
+
+
+  let password = '';
+  let characters = '';
+
+  // Add at least one character of each selected type to the password
+  if (includeUppercase) {
+    password += getRandomCharacter('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  }
+  if (includeLowercase) {
+    password += getRandomCharacter('abcdefghijklmnopqrstuvwxyz');
+  }
+  if (includeNumbers) {
+    password += getRandomCharacter('0123456789');
+  }
+  if (includeSymbols) {
+    password += getRandomCharacter('!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~');
+  }
+
+  // If no characters are selected, the function returns an empty string
+  if (password.length === 0) {
+    return '';
+  }
+
+  // Generate the rest of the password by selecting random characters from the string of characters
+  // for the remaining length, using the function getRandomCharacter()
+  while (password.length < length) {
+    let type = getRandomType(includeUppercase, includeLowercase, includeNumbers, includeSymbols);
+    let character = getRandomCharacter(type);
+    password += character;
+  }
+
+  document.getElementById('passwordform').placeholder = password;
+}
+
+const generateBtn = document.getElementById('button');
+
+generateBtn.addEventListener('click', passwordGenerator);
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // 1. Function to display password 
 
-    // Starting with password 
-    let password = passwordGenerator();                                                    // Need to figure out how to include user input re: uppercase, lowercase, symbols, numbers, etc.? 
+// Starting with password 
+// let password = passwordGenerator();                                                    // Need to figure out how to include user input re: uppercase, lowercase, symbols, numbers, etc.? 
 
-    // Displays password within the <h2> element 
-    function displayPassword() { 
-      document.getElementById('password-display').innerHTML = password;                    // Need to add id 'password-display' to the <h2> element
-    };
+// Displays password within the <h2> element 
+
 
 // 2. Function to copy password 
 
-    // Starting with the element 
-    let copyButton = document.getElementById('copy-button');                                // Need to pull/add ID for copy button from HTML 
+// Starting with the element 
+let copyButton = document.getElementById('copy-button');                                // Need to pull/add ID for copy button from HTML 
 
-    // Calling addEventListener method on the copyButton element, so the user can click on the button and trigger the method
-    copyButton.addEventListener('click', copyPassword);
+// Calling addEventListener method on the copyButton element, so the user can click on the button and trigger the method
+copyButton.addEventListener('click', copyPassword);
 
-    function copyPassword() {
-      // Starting with the password value
-      let passwordValue = document.getElementById('copy-password').value;                   // Need to add 'copy-password' ID in HTML
-      // Calling the writeText method on the clipboard API, and then using then/catch Promise methods
-      navigator.clipboard.writeText(password).then(() => {
-        alert('Copied!');
-      }).catch(err => {
-        alert('Oops, unable to copy');
-      });
-    }
+function copyPassword() {
+  // Starting with the password value
+  let passwordValue = document.getElementById('copy-password').value;                   // Need to add 'copy-password' ID in HTML
+  // Calling the writeText method on the clipboard API, and then using then/catch Promise methods
+  navigator.clipboard.writeText(password).then(() => {
+    alert('Copied!');
+  }).catch(err => {
+    alert('Oops, unable to copy');
+  });
+}
 
 
 
@@ -99,74 +175,15 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
 */
 
 
-  ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 
-  // Helper function to be used in the passwordGenerator function to assist with selecting random characters for the password
-  // Returns a random character type, depending on the specified options
-  function getRandomType(includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
-    let types = '';
-    if (includeUppercase) {
-      types += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    }
-    if (includeLowercase) {
-      types += 'abcdefghijklmnopqrstuvwxyz';
-    }
-    if (includeNumbers) {
-      types += '0123456789';
-    }
-    if (includeSymbols) {
-      types += '!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~';
-    }
-    return types;
-  }
-   
-   // Another helper function to make sure that at least one character is included in the password 
-   // Returns a random character from the specified string of characters
-   function getRandomCharacter(characters) {
-    return characters.charAt(Math.floor(Math.random() * characters.length));
-  }
 
 
-  // The main password generating function 
-  function passwordGenerator(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
-    let password = '';
-    let characters = '';
-  
-    // Add at least one character of each selected type to the password
-    if (includeUppercase) {
-      password += getRandomCharacter('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-    }
-    if (includeLowercase) {
-      password += getRandomCharacter('abcdefghijklmnopqrstuvwxyz');
-    }
-    if (includeNumbers) {
-      password += getRandomCharacter('0123456789');
-    }
-    if (includeSymbols) {
-      password += getRandomCharacter('!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~');
-    }
-  
-    // If no characters are selected, the function returns an empty string
-    if (password.length === 0) {
-      return '';
-    }
-  
-    // Generate the rest of the password by selecting random characters from the string of characters
-    // for the remaining length, using the function getRandomCharacter()
-    while (password.length < length) {
-      let type = getRandomType(includeUppercase, includeLowercase, includeNumbers, includeSymbols);
-      let character = getRandomCharacter(type);
-      password += character;
-    }
-  
-    return password;
-  }
-  
-  // Example:
-  passwordGenerator(12, true, true, true, false);
-  // Output: a password 12 characters long including at least one uppercase, lowercase, and number character, but no symbols.
-  
+// Example:
+// passwordGenerator(12, true, true, true, false);
+// Output: a password 12 characters long including at least one uppercase, lowercase, and number character, but no symbols.
+
 
 
 
@@ -175,79 +192,79 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
 
 
 
-  // Password strength color function 
-  
-  // If parameteres return true, strength variable is increesed by one. 
-  function passwordStrength (includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
-    let strength = 0;
-    let strengthColorBar = '';
-    let strengthText = '';
+// Password strength color function 
 
-    if (includeUppercase) {
-      strength++;
-    }
-    if (includeLowercase) {
-      strength++;
-    }
-    if (includeNumbers) {
-      strength++;
-    }
-    if (includeSymbols) {
-      strength++
-    }
+// If parameteres return true, strength variable is increesed by one. 
+function passwordStrength(includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+  let strength = 0;
+  let strengthColorBar = '';
+  let strengthText = '';
 
-    //Based on the value of the variable 'strength' changing strengthColorBar value with a string of color 
-    //to represent strength
-    if (strength === 0) {
-      strengthColorBar= '#18171F'; //Strength bar default black color
-      strengthText = ''; //Strength text is an empty string
-    }
-    else if (strength === 1) {
-      strengthColorBar = '#F64A4A' //Returns red
-      strengthText = 'TOO WEAK!'; 
-    }
-    else if (strength === 2) {
-      strengthColorBar = '#FB7C58'; //Returns orange
-      strengthText = 'WEAK';
-    }
-    else if (strength === 3) {
-      strengthColorBar = '#F8CD65'; //Returns yellow
-      strengthText = 'MEDIUM'
-    }
-    else {
-      strengthColorBar = '#A4FFAF'; //Returns green
-      strengthText = 'STRONG';
-    }
-
-    return {
-      strengthColorBar : strengthColorBar,
-      strengthText : strengthText
-    };
+  if (includeUppercase) {
+    strength++;
   }
+  if (includeLowercase) {
+    strength++;
+  }
+  if (includeNumbers) {
+    strength++;
+  }
+  if (includeSymbols) {
+    strength++
+  }
+
+  //Based on the value of the variable 'strength' changing strengthColorBar value with a string of color 
+  //to represent strength
+  if (strength === 0) {
+    strengthColorBar = '#18171F'; //Strength bar default black color
+    strengthText = ''; //Strength text is an empty string
+  }
+  else if (strength === 1) {
+    strengthColorBar = '#F64A4A' //Returns red
+    strengthText = 'TOO WEAK!';
+  }
+  else if (strength === 2) {
+    strengthColorBar = '#FB7C58'; //Returns orange
+    strengthText = 'WEAK';
+  }
+  else if (strength === 3) {
+    strengthColorBar = '#F8CD65'; //Returns yellow
+    strengthText = 'MEDIUM'
+  }
+  else {
+    strengthColorBar = '#A4FFAF'; //Returns green
+    strengthText = 'STRONG';
+  }
+
+  return {
+    strengthColorBar: strengthColorBar,
+    strengthText: strengthText
+  };
+}
 
 
 //Example:
 
-passwordStrength(true, true, false, false);
+// passwordStrength(true, true, false, false);
 //Output {strengthColorBar: '#FB7C58', strengthText: 'WEAK'}
 
-/* 
-Update! 
+/*
+Update!
 Function updated as mentioned bellow
 
 
 As I'm looking at this function, it seems to me I have to write another one for changing strength text,
- which is going to look pretty similar, almost exacly the same. 
-Any ideas how to avoid repettion? Perhaps we could include another variable in the passworStrength function like 
+ which is going to look pretty similar, almost exacly the same.
+Any ideas how to avoid repettion? Perhaps we could include another variable in the passworStrength function like
 strengthText and return and object, for example :
 
            retrun {
-            strengthColorBar : strengthColorBar, 
+            strengthColorBar : strengthColorBar,
             strengthText : strengthText
            };
 
   The passwordStrength function would only add couple more lines for example :
-     
+
            ......
 
            if (strength === 0) {
@@ -258,18 +275,18 @@ strengthText and return and object, for example :
               strengthColorBar = '#F64A4A';
 
             ......
- 
-*/  
+
+*/
 
 
 ////////////////////////////////////////////////////////////////////////
-
+/*
 //Include uppercase function 
 
-function includeUppercase () {
+function includeUppercase() {
   //get reference to the checkbox 
   let checkbox = document.getElementById('uppercase');
-  
+
   //Access the checked property of the checkbox element. If its checked property is true, 
   //then the checkbox is checked, otherwise, it is not.
   if (checkbox.checked) {
@@ -286,7 +303,7 @@ function includeUppercase () {
 
 
 //function the same principle as above 
-function includeLowercase () {
+function includeLowercase() {
   let checkbox = getElementById('lowercase');
 
   if (checkbox.checked) {
@@ -302,7 +319,7 @@ function includeLowercase () {
 //Include numbers function 
 
 //function the same principle as above
-function includeNumbers () {
+function includeNumbers() {
   let checkbox = getElementById('numbers');
 
   if (checkbox.checked) {
@@ -318,7 +335,7 @@ function includeNumbers () {
 //Include symbols function 
 
 //Function the same principle as above 
-function includeSymbols () {
+function includeSymbols() {
   let checkbox = getElementById('symbols');
 
   if (checkbox.checked) {
@@ -327,3 +344,4 @@ function includeSymbols () {
     return false;
   }
 }
+*/

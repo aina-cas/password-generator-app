@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,15 @@
     <!-- FONTAWSOME -->
     <script src="https://kit.fontawesome.com/f49dd2c68d.js" crossorigin="anonymous"></script>
     <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
-     <!-- STYLE CSS -->
+    <!-- STYLE CSS -->
     <link rel="stylesheet" href="style.css">
-     <!-- FORM CSS -->
+    <!-- FORM CSS -->
     <link rel="stylesheet" href="form.css">
 </head>
+
 <body>
     <!-- HEADER -->
     <header id="header">
@@ -28,28 +30,28 @@
 
     <!-- PASSWORD -->
     <main id="main">
-    <div id="password" class="container">
-        <form>
-            <input type="password" id="password" name="password" placeholder="P4$5W0rD!">
-        </form>
-        <i class="fa-regular fa-copy"></i> 
-    </div>
-        
-    <!-- CHARACTER -->
-        
+        <div id="password" class="container">
+            <form>
+                <input type="password" id="passwordform" name="password" placeholder="P4$5W0rD!" readonly>
+            </form>
+            <i class="fa-regular fa-copy"></i>
+        </div>
+
+        <!-- CHARACTER -->
+
         <div id="main2">
-        <div id="character" class="container">
+            <div id="character" class="container">
                 <h2>Character Length</h2>
                 <p id="character-length">0</p>
             </div>
-        <!-- STATUS BAR -->
-        <div id="statusbar">
-            <div class="container">
-                <input type="range" id="status" name="status"
-                    min="0" max="20" value="0" step="1" oninput="displayCharacterLength()"/>
+            <!-- STATUS BAR -->
+            <div id="statusbar">
+                <div class="container">
+                    <input type="range" id="status" name="status" min="0" max="20" value="0" step="1"
+                        oninput="displayCharacterLength()" />
+                </div>
             </div>
-        </div>
-        <!-- CHECKBOX -->
+            <!-- CHECKBOX -->
             <div class="container" id="checkbox">
                 <div class="checkbox">
                     <form>
@@ -65,11 +67,11 @@
                         <input type="checkbox" id="symbols" name="symbols" value="symbols">
                         <span class="check-box-effect"></span>
                         <label for="symbols"> Include Symbols</label><br><br>
-                      </form> 
+                    </form>
                 </div>
             </div>
 
-        <!-- STRENGTH -->
+            <!-- STRENGTH -->
             <div id="strength" class="container">
                 <h3>STRENGTH</h3>
                 <div class="status">
@@ -82,16 +84,17 @@
                     </div>
                 </div>
             </div>
-        <!-- BUTTON -->
+            <!-- BUTTON -->
             <div id="button" class="container">
                 <h2>GENERATE</h2>
                 <i class="fa-regular fa-arrow-right"></i>
             </div>
         </div>
     </main>
-        <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer></footer>
-        <!-- SCRIPT -->
+    <!-- SCRIPT -->
     <script src="script.js"></script>
 </body>
+
 </html>
