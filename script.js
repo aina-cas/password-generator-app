@@ -1,4 +1,4 @@
-
+'use strict';
 
 //Adding working and connected functions to the top of the page 
 
@@ -33,6 +33,7 @@ function getRandomType(includeUppercase, includeLowercase, includeNumbers, inclu
 // Another helper function to make sure that at least one character is included in the password 
 // Returns a random character from the specified string of characters
 function getRandomCharacter(characters) {
+
   return characters.charAt(Math.floor(Math.random() * characters.length));
 }
 
@@ -47,11 +48,16 @@ function passwordGenerator() {
   let includeNumbers = document.getElementById('numbers').checked;
   let includeSymbols = document.getElementById('symbols').checked;
 
-
   let password = '';
   let characters = '';
 
+  // If no characters are selected, the function returns an empty string
+  if (length === 0) {
+    password = '';
+  }
+
   // Add at least one character of each selected type to the password
+
   if (includeUppercase) {
     password += getRandomCharacter('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
   }
@@ -65,10 +71,7 @@ function passwordGenerator() {
     password += getRandomCharacter('!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~');
   }
 
-  // If no characters are selected, the function returns an empty string
-  if (password.length === 0) {
-    return '';
-  }
+
 
   // Generate the rest of the password by selecting random characters from the string of characters
   // for the remaining length, using the function getRandomCharacter()
@@ -105,16 +108,17 @@ generateBtn.addEventListener('click', passwordGenerator);
 // 2. Function to copy password 
 
 // Starting with the element 
-let copyButton = document.getElementById('copy-button');                                // Need to pull/add ID for copy button from HTML 
+let copyButton = document.querySelector('.fa-copy');                                // Need to pull/add ID for copy button from HTML 
+copyButton.addEventListener("click", copyPassword);
 
 // Calling addEventListener method on the copyButton element, so the user can click on the button and trigger the method
-copyButton.addEventListener('click', copyPassword);
+// copyButton.addEventListener('click', copyPassword);
 
 function copyPassword() {
   // Starting with the password value
-  let passwordValue = document.getElementById('copy-password').value;                   // Need to add 'copy-password' ID in HTML
+  let passwordValue = document.getElementById('passwordform').placeholder;                   // Need to add 'copy-password' ID in HTML
   // Calling the writeText method on the clipboard API, and then using then/catch Promise methods
-  navigator.clipboard.writeText(password).then(() => {
+  navigator.clipboard.writeText(passwordValue).then(() => {
     alert('Copied!');
   }).catch(err => {
     alert('Oops, unable to copy');
@@ -190,12 +194,27 @@ function passwordGenerator(length, includeUppercase, includeLowercase, includeNu
 ///////////////////////////////////////////////////////////////////////
 
 
+// document.querySelectorAll('check-box-effect').forEach(e => e.addEventListener('click', passwordStrength));
+
+const checkboxes = document.querySelectorAll('input[type=checkbox]');
+checkboxes.forEach((e) => {
+  e.addEventListener('click', passwordStrength)
+});
+
 
 
 // Password strength color function 
 
+
 // If parameteres return true, strength variable is increesed by one. 
-function passwordStrength(includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+function passwordStrength() {
+  const strengthColorBars = document.querySelectorAll('.vl');
+  // console.log(strengthColorBars);
+  let includeUppercase = document.getElementById('uppercase').checked;
+  let includeLowercase = document.getElementById('lowercase').checked;
+  let includeNumbers = document.getElementById('numbers').checked;
+  let includeSymbols = document.getElementById('symbols').checked;
+
   let strength = 0;
   let strengthColorBar = '';
   let strengthText = '';
@@ -215,31 +234,70 @@ function passwordStrength(includeUppercase, includeLowercase, includeNumbers, in
 
   //Based on the value of the variable 'strength' changing strengthColorBar value with a string of color 
   //to represent strength
-  if (strength === 0) {
-    strengthColorBar = '#18171F'; //Strength bar default black color
-    strengthText = ''; //Strength text is an empty string
-  }
-  else if (strength === 1) {
-    strengthColorBar = '#F64A4A' //Returns red
+  if (strength === 1) {
+    // change color bar
+    // Bar 1 - change to red
+    // Bars 2, 3, 4 - keep default color
+    // change text
+    strengthColorBars[0].style.backgroundColor = '#F64A4A'; // returns red;
+    strengthColorBars[1].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[2].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[3].style.backgroundColor = '#18171F'; //Strength bar default black color
     strengthText = 'TOO WEAK!';
+    document.getElementById('strength-text').innerHTML = strengthText;
   }
   else if (strength === 2) {
-    strengthColorBar = '#FB7C58'; //Returns orange
+    // change color bar
+    // Bar 1, 2 - change to orange
+    // Bars 3, 4 - keep default color
+    // change text
+    strengthColorBars[0].style.backgroundColor = '#F64A4A';
+    strengthColorBars[1].style.backgroundColor = '#F64A4A';
+    strengthColorBars[2].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[3].style.backgroundColor = '#18171F'; //Strength bar default black color
     strengthText = 'WEAK';
+    document.getElementById('strength-text').innerHTML = strengthText;
   }
   else if (strength === 3) {
-    strengthColorBar = '#F8CD65'; //Returns yellow
-    strengthText = 'MEDIUM'
+    // change color bar
+    // Bar 1, 2, 3 - yellow
+    // Bar 4 - default color
+    // change text
+    strengthColorBars[0].style.backgroundColor = '#F8CD65'; // returns yellow
+    strengthColorBars[1].style.backgroundColor = '#F8CD65'; // returns yellow
+    strengthColorBars[2].style.backgroundColor = '#F8CD65'; // returns yellow
+    strengthColorBars[3].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthText = 'MEDIUM';
+    document.getElementById('strength-text').innerHTML = strengthText;
   }
-  else {
-    strengthColorBar = '#A4FFAF'; //Returns green
+  else if (strength === 4) {
+    // change color bar
+    // all bars - green
+    // change text
+    strengthColorBars[0].style.backgroundColor = '#A4FFAF'; //Returns green
+    strengthColorBars[1].style.backgroundColor = '#A4FFAF'; //Returns green
+    strengthColorBars[2].style.backgroundColor = '#A4FFAF'; //Returns green
+    strengthColorBars[3].style.backgroundColor = '#A4FFAF'; //Returns green
     strengthText = 'STRONG';
+    document.getElementById('strength-text').innerHTML = strengthText;
+  } else {
+    strengthColorBars[0].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[1].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[2].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthColorBars[3].style.backgroundColor = '#18171F'; //Strength bar default black color
+    strengthText = 'STRENGTH'; //Strength text is an empty string
+    document.getElementById('strength-text').innerHTML = strengthText;
   }
 
-  return {
-    strengthColorBar: strengthColorBar,
-    strengthText: strengthText
-  };
+  //   const divs = document.querySelectorAll('.vl');
+  //   for (let i = 0; i < strength; i++) {
+  //     if (i < strength) {
+  //       if (strength === 1) {
+  //         div
+  //       }
+  //     }
+  //   }
+  // console.log(strength);
 }
 
 
